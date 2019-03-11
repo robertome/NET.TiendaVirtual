@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TiendaVirtualDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TiendaVirtualDbModelStoreContainer">
+    <EntitySet Name="Orders" EntityType="TiendaVirtualDbModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Articles" EntityType="TiendaVirtualDbModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderItems" EntityType="TiendaVirtualDbModel.Store.OrderItems" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OrderItemArticle" Association="TiendaVirtualDbModel.Store.OrderItemArticle">
+      <End Role="OrderItem" EntitySet="OrderItems" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="OrderOrderItem" Association="TiendaVirtualDbModel.Store.OrderOrderItem">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address_Street" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_ZipCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetimeoffset" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PictureUri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="decimal" Nullable="false" />
+    <Property Name="Article_Id" Type="int" Nullable="false" />
+    <Property Name="OrderOrderItem_OrderItem_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="OrderItemArticle">
+    <End Role="OrderItem" Type="TiendaVirtualDbModel.Store.OrderItems" Multiplicity="*" />
+    <End Role="Article" Type="TiendaVirtualDbModel.Store.Articles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="Article_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderOrderItem">
+    <End Role="Order" Type="TiendaVirtualDbModel.Store.Orders" Multiplicity="1" />
+    <End Role="OrderItem" Type="TiendaVirtualDbModel.Store.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderOrderItem_OrderItem_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaVirtualDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TiendaVirtualDbEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Orders" EntityType="TiendaVirtualDbModel.Order" />
+          <EntitySet Name="Articles" EntityType="TiendaVirtualDbModel.Article" />
+          <EntitySet Name="OrderItems" EntityType="TiendaVirtualDbModel.OrderItem" />
+          <AssociationSet Name="OrderItemArticle" Association="TiendaVirtualDbModel.OrderItemArticle">
+            <End Role="OrderItem" EntitySet="OrderItems" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="OrderOrderItem" Association="TiendaVirtualDbModel.OrderOrderItem">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="TiendaVirtualDbModel.Address" Nullable="false" />
+          <NavigationProperty Name="OrderItems" Relationship="TiendaVirtualDbModel.OrderOrderItem" FromRole="Order" ToRole="OrderItem" />
+          <Property Name="Date" Type="DateTimeOffset" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="Address" >
+          <Property Type="String" Name="Street" Nullable="false" />
+          <Property Type="String" Name="City" Nullable="false" />
+          <Property Type="String" Name="Country" Nullable="false" />
+          <Property Type="String" Name="ZipCode" Nullable="false" />
+          <Property Type="String" Name="State" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="PictureUri" Type="String" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
+          <NavigationProperty Name="Article" Relationship="TiendaVirtualDbModel.OrderItemArticle" FromRole="OrderItem" ToRole="Article" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="OrderItemArticle">
+          <End Type="TiendaVirtualDbModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <End Type="TiendaVirtualDbModel.Article" Role="Article" Multiplicity="1" />
+        </Association>
+        <Association Name="OrderOrderItem">
+          <End Type="TiendaVirtualDbModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="TiendaVirtualDbModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TiendaVirtualDbModelStoreContainer" CdmEntityContainer="TiendaVirtualDbEntities">
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualDbModel.Order)">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ComplexProperty Name="Address" TypeName="TiendaVirtualDbModel.Address">
+            <ScalarProperty Name="Street" ColumnName="Address_Street" />
+            <ScalarProperty Name="City" ColumnName="Address_City" />
+            <ScalarProperty Name="Country" ColumnName="Address_Country" />
+            <ScalarProperty Name="ZipCode" ColumnName="Address_ZipCode" />
+            <ScalarProperty Name="State" ColumnName="Address_State" />
+          </ComplexProperty>
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualDbModel.Article)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PictureUri" ColumnName="PictureUri" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualDbModel.OrderItem)">
+        <MappingFragment StoreEntitySet="OrderItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="OrderItemArticle" TypeName="TiendaVirtualDbModel.OrderItemArticle" StoreEntitySet="OrderItems">
+      <EndProperty Name="Article">
+        <ScalarProperty Name="Id" ColumnName="Article_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderOrderItem" TypeName="TiendaVirtualDbModel.OrderOrderItem" StoreEntitySet="OrderItems">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="OrderOrderItem_OrderItem_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderItem">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
