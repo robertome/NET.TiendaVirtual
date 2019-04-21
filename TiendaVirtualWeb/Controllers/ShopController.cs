@@ -8,20 +8,32 @@ using System.Web;
 using System.Web.Mvc;
 using TiendaVirtualWeb.Data;
 using TiendaVirtualWeb.Models;
+using TiendaVirtualWeb.Services;
 
 namespace TiendaVirtualWeb.Controllers
 {
     public class ShopController : Controller
     {
-        private TiendaVirtualDbEntities db = new TiendaVirtualDbEntities();
+        private TiendaVirtualDbEntities db;
+        private CartService cartService;
+        private ArticleService articleService;
+
+        public ShopController()
+        {
+            this.db = new TiendaVirtualDbEntities();
+            this.cartService = new CartService(db);
+            this.articleService = new ArticleService(db);
+        }
 
         // GET: Article
         public ActionResult Index()
         {
-            return View(db.Articles.ToList());
+            var articles = db.Articles.ToList();
+            var articlesViewModel = articleService.ArticlesViewModelFromArticles(articles);
+            return View(articlesViewModel);
         }
 
-        // GET: Article/Details/5
+        // GET: Article/AddToCart/5
         public ActionResult AddToCart(int? id)
         {
             if (id == null)
@@ -33,10 +45,10 @@ namespace TiendaVirtualWeb.Controllers
             {
                 return HttpNotFound();
             }
-            return View(article);
+            return View(articleService.ArticleViewModelFromArticle(article));
         }
 
-        // POST: Article/Create
+        // POST: Article/AddToCart
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -45,28 +57,9 @@ namespace TiendaVirtualWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                Article article = db.Articles.Find(id);
-                cart.AddItem(id, article.Price);
+                cartService.AddItemToCart(cart, id);
             }
 
-            return RedirectToAction("Index");
-        }
-
-
-
-
-
-
-
-
-        // POST: Article/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            Article article = db.Articles.Find(id);
-            db.Articles.Remove(article);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

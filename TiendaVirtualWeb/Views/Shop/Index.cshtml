@@ -1,49 +1,35 @@
-﻿@model IEnumerable<TiendaVirtualWeb.Data.Article>
+﻿@model IEnumerable<TiendaVirtualWeb.Models.ArticleViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Shop</h2>
-
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PictureUri)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>
+        </th>        
         <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
-        </th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PictureUri)
+            <img src="@Url.Content(item.PictureUri)"
+                 alt="@Html.DisplayFor(modelItem => item.PictureUri)"
+                 height="120" width="100" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
+        </td>        
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>        
         <td>
             @Html.ActionLink("Details", "AddToCart", new { id = item.Id })
         </td>

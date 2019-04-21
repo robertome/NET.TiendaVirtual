@@ -1,65 +1,47 @@
-﻿@model TiendaVirtualWeb.Data.Article
+﻿@model TiendaVirtualWeb.Models.ArticleViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
-    <div>
-        <h4>Article</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.PictureUri)
-            </dt>
+        <dd>
+            <img src="@Url.Content(Model.PictureUri)"
+                 alt="@Html.DisplayFor(model => model.PictureUri)"
+                 height="400" width="400" />
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.PictureUri)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Stock)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Stock)
-            </dd>
-
-        </dl>
-    </div>
-    <div class="col-md-offset-2 col-md-10">
+    </dl>
+</div>
+<div class="col-md-offset-2 col-md-10">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
         <input type="submit" value="Add to Cart" class="btn btn-default" />
-    </div>
-    <p>
-        @Html.ActionLink("Back to Shop", "Index")
-    </p>
-}
+    }
+</div>
+<p>
+    @Html.ActionLink("Continue shopping", "Index")
+</p>
+

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace TiendaVirtualWeb.Models
+namespace TiendaVirtualWeb.Data
 {
     public class Cart
     {
-        private List<CartItem> items = new List<CartItem>();        
+        private List<CartItem> items = new List<CartItem>();
+        public IReadOnlyCollection<CartItem> Items => items.AsReadOnly();
+        public int ItemsCount { get; set; }
 
         public void AddItem(int articleId, decimal unitPrice, int quantity = 1)
         {
@@ -15,8 +16,12 @@ namespace TiendaVirtualWeb.Models
             if (existingItem != null)
             {
                 existingItem.Quantity += quantity;
+                if (existingItem.Quantity < 1)
+                {
+                    items.Remove(existingItem);
+                }
             }
-            else
+            else if (quantity > 0)
             {
                 items.Add(new CartItem()
                 {
@@ -24,7 +29,15 @@ namespace TiendaVirtualWeb.Models
                     Quantity = quantity,
                     UnitPrice = unitPrice
                 });
-            }                        
+            }
+
+            ItemsCount = Items.Sum(i => i.Quantity);
         }
+
+        public decimal Total()
+        {
+            return Math.Round(Items.Sum(i => i.UnitPrice * i.Quantity), 2);
+        }
+
     }
 }
