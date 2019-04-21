@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/11/2019 01:02:01
+-- Date Created: 04/21/2019 18:30:02
 -- Generated from EDMX file: E:\UPM\MIW\workspace\NET\NET.TiendaVirtual\TiendaVirtualWeb\Data\TiendaVirtualDbContext.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,26 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_OrderItemArticle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrderItems] DROP CONSTRAINT [FK_OrderItemArticle];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrderOrderItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrderItems] DROP CONSTRAINT [FK_OrderOrderItem];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Orders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Orders];
+GO
+IF OBJECT_ID(N'[dbo].[Articles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Articles];
+GO
+IF OBJECT_ID(N'[dbo].[OrderItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrderItems];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -45,7 +60,7 @@ CREATE TABLE [dbo].[Articles] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
-    [PictureUri] nvarchar(max)  NOT NULL,
+    [PictureFilename] nvarchar(max)  NOT NULL,
     [Price] decimal(18,0)  NOT NULL,
     [Stock] int  NOT NULL
 );

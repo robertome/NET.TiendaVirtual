@@ -38,7 +38,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PictureUri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PictureFilename" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Price" Type="decimal" Nullable="false" />
     <Property Name="Stock" Type="int" Nullable="false" />
   </EntityType>
@@ -117,7 +117,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="PictureUri" Type="String" Nullable="false" />
+          <Property Name="PictureFilename" Type="String" Nullable="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" />
           <Property Name="Stock" Type="Int32" Nullable="false" />
         </EntityType>
@@ -166,7 +166,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="PictureUri" ColumnName="PictureUri" />
+          <ScalarProperty Name="PictureFilename" ColumnName="PictureFilename" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Stock" ColumnName="Stock" />
         </MappingFragment>
