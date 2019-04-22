@@ -18,6 +18,7 @@ namespace TiendaVirtualWeb.Data
         public Order()
         {
             this.OrderItems = new HashSet<OrderItem>();
+            this.Buyer = new Buyer();
             this.Address = new Address();
         }
     
@@ -25,6 +26,7 @@ namespace TiendaVirtualWeb.Data
         public System.DateTimeOffset Date { get; set; }
         public decimal Price { get; set; }
     
+        public Buyer Buyer { get; set; }
         public Address Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

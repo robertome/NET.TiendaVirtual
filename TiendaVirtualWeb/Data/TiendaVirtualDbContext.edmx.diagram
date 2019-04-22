@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6cca2dc3aec44069b857d0b939ccda4a" Name="Diagram1" >
-        <EntityTypeShape EntityType="TiendaVirtualDbModel.Order" Width="1.5" PointX="0.75" PointY="0.5" />
+        <EntityTypeShape EntityType="TiendaVirtualDbModel.Order" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TiendaVirtualDbModel.Article" Width="1.5" PointX="2.875" PointY="1.75" />
         <EntityTypeShape EntityType="TiendaVirtualDbModel.OrderItem" Width="1.5" PointX="0.75" PointY="2.75" />
         <AssociationConnector Association="TiendaVirtualDbModel.OrderItemArticle" />

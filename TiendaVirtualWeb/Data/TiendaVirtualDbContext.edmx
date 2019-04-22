@@ -23,13 +23,16 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetimeoffset" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="Buyer_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Buyer_Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Buyer_Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address_Street" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address_City" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address_Country" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address_ZipCode" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address_State" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Date" Type="datetimeoffset" Nullable="false" />
-    <Property Name="Price" Type="decimal" Nullable="false" />
   </EntityType>
   <EntityType Name="Articles">
     <Key>
@@ -98,10 +101,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="TiendaVirtualDbModel.Address" Nullable="false" />
           <NavigationProperty Name="OrderItems" Relationship="TiendaVirtualDbModel.OrderOrderItem" FromRole="Order" ToRole="OrderItem" />
           <Property Name="Date" Type="DateTimeOffset" Nullable="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="Buyer" Type="TiendaVirtualDbModel.Buyer" Nullable="false" />
+          <Property Name="Address" Type="TiendaVirtualDbModel.Address" Nullable="false" />
         </EntityType>
         <ComplexType Name="Address" >
           <Property Type="String" Name="Street" Nullable="false" />
@@ -138,6 +142,11 @@
           <End Type="TiendaVirtualDbModel.Order" Role="Order" Multiplicity="1" />
           <End Type="TiendaVirtualDbModel.OrderItem" Role="OrderItem" Multiplicity="*" />
         </Association>
+        <ComplexType Name="Buyer" >
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Surname" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -148,6 +157,13 @@
       <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualDbModel.Order)">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ComplexProperty Name="Buyer" TypeName="TiendaVirtualDbModel.Buyer">
+            <ScalarProperty Name="Name" ColumnName="Buyer_Name" />
+            <ScalarProperty Name="Surname" ColumnName="Buyer_Surname" />
+            <ScalarProperty Name="Email" ColumnName="Buyer_Email" />
+          </ComplexProperty>
           <ComplexProperty Name="Address" TypeName="TiendaVirtualDbModel.Address">
             <ScalarProperty Name="Street" ColumnName="Address_Street" />
             <ScalarProperty Name="City" ColumnName="Address_City" />
@@ -155,8 +171,6 @@
             <ScalarProperty Name="ZipCode" ColumnName="Address_ZipCode" />
             <ScalarProperty Name="State" ColumnName="Address_State" />
           </ComplexProperty>
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

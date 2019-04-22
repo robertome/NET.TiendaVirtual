@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/21/2019 18:30:02
+-- Date Created: 04/22/2019 18:20:01
 -- Generated from EDMX file: E:\UPM\MIW\workspace\NET\NET.TiendaVirtual\TiendaVirtualWeb\Data\TiendaVirtualDbContext.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
---USE [TiendaVirtualDb];
+USE [TiendaVirtualDb];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -45,13 +45,16 @@ GO
 -- Creating table 'Orders'
 CREATE TABLE [dbo].[Orders] (
     [Id] int IDENTITY(1,1) NOT NULL,
+    [Date] datetimeoffset  NOT NULL,
+    [Price] decimal(18,0)  NOT NULL,
+    [Buyer_Name] nvarchar(max)  NOT NULL,
+    [Buyer_Surname] nvarchar(max)  NOT NULL,
+    [Buyer_Email] nvarchar(max)  NOT NULL,
     [Address_Street] nvarchar(max)  NOT NULL,
     [Address_City] nvarchar(max)  NOT NULL,
     [Address_Country] nvarchar(max)  NOT NULL,
     [Address_ZipCode] nvarchar(max)  NOT NULL,
-    [Address_State] nvarchar(max)  NOT NULL,
-    [Date] datetimeoffset  NOT NULL,
-    [Price] decimal(18,0)  NOT NULL
+    [Address_State] nvarchar(max)  NOT NULL
 );
 GO
 

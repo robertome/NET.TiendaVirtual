@@ -10,29 +10,11 @@
 namespace TiendaVirtualWeb.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Article
+    
+    public partial class Buyer
     {
-        public int Id { get; set; }
-
-        [Required]
-        [MaxLength(250)]
         public string Name { get; set; }
-
-        [Required]
-        [MaxLength(2500)]
-        public string Description { get; set; }
-
-        [Required]
-        [MaxLength(250)]
-        public string PictureFilename { get; set; }
-
-        [DataType(DataType.Currency)]
-        public decimal Price { get; set; }
-
-        [Required]
-        public int Stock { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
     }
 }

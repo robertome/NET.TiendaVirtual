@@ -9,6 +9,10 @@ namespace TiendaVirtualWeb.Data
         private List<CartItem> items = new List<CartItem>();
         public IReadOnlyCollection<CartItem> Items => items.AsReadOnly();
         public int ItemsCount { get; set; }
+        public decimal Total
+        {
+            get { return Math.Round(Items.Sum(i => i.UnitPrice * i.Quantity), 2); }
+        }
 
         public void AddItem(int articleId, decimal unitPrice, int quantity = 1)
         {
@@ -34,10 +38,10 @@ namespace TiendaVirtualWeb.Data
             ItemsCount = Items.Sum(i => i.Quantity);
         }
 
-        public decimal Total()
+        public void Clear()
         {
-            return Math.Round(Items.Sum(i => i.UnitPrice * i.Quantity), 2);
+            ItemsCount = 0;
+            items.Clear();
         }
-
     }
 }
