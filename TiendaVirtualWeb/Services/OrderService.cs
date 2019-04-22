@@ -32,6 +32,7 @@ namespace TiendaVirtualWeb.Controllers
                 Article article = item.Article;
                 int newStock = article.Stock - item.Quantity;
                 article.Stock = newStock > 0 ? newStock : 0;
+
                 db.Entry(article).State = EntityState.Modified;
             }
 

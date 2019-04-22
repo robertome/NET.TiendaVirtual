@@ -10,7 +10,7 @@ namespace TiendaVirtualWeb.Models
         private DateTimeOffset date = DateTimeOffset.Now;
 
         [DataType(DataType.DateTime)]
-        public DateTimeOffset Date { get; }
+        public DateTimeOffset Date => date;
 
         public CartViewModel CartViewModel { get; set; }
 
