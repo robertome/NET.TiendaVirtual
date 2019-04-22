@@ -10,6 +10,7 @@ using TiendaVirtualWeb.Data;
 
 namespace TiendaVirtualWeb.Controllers
 {
+    [Authorize]
     public class ArticleController : Controller
     {
         private TiendaVirtualDbEntities db = new TiendaVirtualDbEntities();
