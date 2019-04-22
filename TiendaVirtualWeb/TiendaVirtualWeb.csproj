@@ -177,6 +177,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Data\Buyer.cs">
+      <DependentUpon>TiendaVirtualDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddressViewModel.cs" />
+    <Compile Include="Models\BuyerViewModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -314,6 +322,10 @@
     <Content Include="Views\Cart\_ViewStart.cshtml" />
     <Content Include="Views\Shop\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Shop\_CartPartial.cshtml" />
+    <Content Include="Views\Cart\OrderInfo.cshtml" />
+    <Content Include="Views\Cart\OrderSummary.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
