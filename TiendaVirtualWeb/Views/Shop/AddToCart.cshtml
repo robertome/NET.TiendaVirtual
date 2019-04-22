@@ -33,14 +33,19 @@
 
     </dl>
 </div>
-<div class="col-md-offset-2 col-md-10">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Id)
-        <input type="submit" value="Add to Cart" class="btn btn-default" />
-    }
-</div>
+
+@if (Model.HasStock)
+{
+    <div class="col-md-offset-2 col-md-10">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <input type="submit" value="Add to Cart" class="btn btn-default" />
+        }
+    </div>
+}
+
 <p>
     @Html.ActionLink("Continue shopping", "Index")
 </p>

@@ -9,6 +9,8 @@ namespace TiendaVirtualWeb.Services
 {
     public class ArticleService
     {
+        private const string OUT_OF_STOCK_IMAGE = "out-of-stock.jpg";
+
         private TiendaVirtualDbEntities db;
 
         public ArticleService(TiendaVirtualDbEntities db)
@@ -29,13 +31,16 @@ namespace TiendaVirtualWeb.Services
 
         public ArticleViewModel ArticleViewModelFromArticle(Article article)
         {
+            bool hasStock = article.Stock > 0;
+            string pictureFilename = hasStock ? article.PictureFilename : OUT_OF_STOCK_IMAGE;
             return new ArticleViewModel
             {
                 Id = article.Id,
                 Name = article.Name,
                 Description = article.Description,
                 UnitPrice = article.Price,
-                PictureUri = UriComposer.ComposeUri(article.PictureFilename)
+                HasStock = hasStock,
+                PictureUri = UriComposer.ComposeUri(pictureFilename)
             };
         }
     }

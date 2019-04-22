@@ -14,6 +14,8 @@ namespace TiendaVirtualWeb.Models
         [Display(Name = "Price")]
         public decimal UnitPrice { get; set; }
 
-        public string PictureUri { get; set; }       
+        public string PictureUri { get; set; }
+
+        public bool HasStock { get; set; }
     }
 }
