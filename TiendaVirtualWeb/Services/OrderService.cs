@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using TiendaVirtualWeb.Data;
 using TiendaVirtualWeb.Models;
 using TiendaVirtualWeb.Services;
@@ -14,7 +15,7 @@ namespace TiendaVirtualWeb.Controllers
         {
             this.db = db;
         }
-        
+
         public void CreateOrder(OrderViewModel orderViewModel)
         {
             Order order = new Order
@@ -25,6 +26,14 @@ namespace TiendaVirtualWeb.Controllers
                 Address = orderViewModel.Address.ToAddress(),
                 OrderItems = OrderItemsFromCartItemsViewModel(orderViewModel.Items)
             };
+
+            foreach (OrderItem item in order.OrderItems)
+            {
+                Article article = item.Article;
+                int newStock = article.Stock - item.Quantity;
+                article.Stock = newStock > 0 ? newStock : 0;
+                db.Entry(article).State = EntityState.Modified;
+            }
 
             db.Orders.Add(order);
             db.SaveChanges();
