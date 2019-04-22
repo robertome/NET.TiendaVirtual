@@ -5,17 +5,18 @@ using TiendaVirtualWeb.Data;
 namespace TiendaVirtualWeb.Models
 {
     public class CartViewModel
-    {
-        private readonly Cart cart;
+    {        
         public List<CartItemViewModel> Items { get; set; } = new List<CartItemViewModel>();
+
         [DataType(DataType.Currency)]
         [Display(Name = "Total Price")]
-        public decimal Total { get { return cart.Total(); } }
+        public decimal Total { get; set; }
+
         public bool Empty { get { return Items.Count == 0; } }
 
         public CartViewModel(Cart cart, List<CartItemViewModel> items)
         {
-            this.cart = cart;
+            Total = cart.Total;
             Items = items;
         }
 

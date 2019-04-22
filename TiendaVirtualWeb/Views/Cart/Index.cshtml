@@ -65,7 +65,7 @@
             <div class="panel-heading h2 btn-">@Html.DisplayNameFor(model => model.Total): @Html.DisplayFor(model => model.Total)</div>
             @if(!Model.Empty) { 
             <div class="panel-body">
-                @Html.ActionLink("Order", "Index", "Shop", new { @class = "btn btn-primary btn-lg btn-block" })
+                @Html.ActionLink("Order", "OrderInfo", "Cart", null, new { @class = "btn btn-primary btn-lg btn-block" })
             </div>
             }
         </div>
