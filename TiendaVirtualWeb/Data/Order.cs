@@ -11,7 +11,8 @@ namespace TiendaVirtualWeb.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,8 @@ namespace TiendaVirtualWeb.Data
     
         public int Id { get; set; }
         public System.DateTimeOffset Date { get; set; }
+
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
     
         public Buyer Buyer { get; set; }
